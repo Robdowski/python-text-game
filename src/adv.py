@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -38,6 +38,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player(name = input("Please enter a name for your character..."), current_room = room['outside'])
 
 # Write a loop that:
 #
@@ -49,3 +50,35 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+print(f"\n==={player.name}, your adventure awaits! Go forth, and conquer!===\n")
+print("===COMMANDS===\n n: Move North\n s: Move South\n e: Move East\n w: Move West\n q: Quit\n room: Current Room Description\n help: Help\n==============\n\n")
+while True:
+    print(f"\n\n==Current Location: {player.current_room.name}==\n")
+    print(f"{player.current_room.description}\n")
+    player_move = input("Please enter a command.\n ==>")
+    if player_move == "q":
+        break
+    elif player_move == "help":
+        print("Move commands: n, s, e, w. Type 'room' to get a description of your current position. Type 'q' to quit")
+    elif player_move == "room":
+        print(player.current_room.description)
+    elif player_move == "n":
+        if player.current_room.n_to != '':
+            player.current_room = player.current_room.n_to
+        else:
+            print("There isn't a way to go that direction!\n")
+    elif player_move == "s":
+        if player.current_room.s_to != '':
+            player.current_room = player.current_room.s_to
+        else:
+            print("There isn't a way to go that direction!\n")
+    elif player_move == "e":
+        if player.current_room.e_to != '':
+            player.current_room = player.current_room.e_to
+        else:
+            print("There isn't a way to go that direction!\n")
+    elif player_move == "w":
+        if player.current_room.w_to != '':
+            player.current_room = player.current_room.w_to
+        else:
+            print("There isn't a way to go that direction!\n")
