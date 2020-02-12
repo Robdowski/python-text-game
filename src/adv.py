@@ -66,19 +66,19 @@ while True:
         if player.current_room.n_to != '':
             player.current_room = player.current_room.n_to
         else:
-            print("There isn't a way to go that direction!\n")
+            print("\n\nThere isn't a way to go that direction!\n")
     elif player_move == "s":
         if player.current_room.s_to != '':
             player.current_room = player.current_room.s_to
         else:
-            print("There isn't a way to go that direction!\n")
+            print("\n\nThere isn't a way to go that direction!\n")
     elif player_move == "e":
         if player.current_room.e_to != '':
             player.current_room = player.current_room.e_to
         else:
-            print("There isn't a way to go that direction!\n")
+            print("\n\nThere isn't a way to go that direction!\n")
     elif player_move == "w":
         if player.current_room.w_to != '':
             player.current_room = player.current_room.w_to
         else:
-            print("There isn't a way to go that direction!\n")
+            print("\n\nThere isn't a way to go that direction!\n")
