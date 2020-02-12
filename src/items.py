@@ -34,4 +34,17 @@ class Consumable(Item):
         self.effect = effect
     def __str__(self):
         f"Item: {self.name}\nEffect: {self.effect}\n"
-        
+
+class LoreItem(Item):
+    def __init__(self, name, shorthand, description):
+        super().__init__(name, shorthand)
+        self.description = description
+    def __str__(self):
+        f"{self.description}. I'm not sure whether it'll be useful later..."
+
+class Uncarriable(Item):
+    def __init__(self, name, shorthand, description):
+        super().__init__(name, shorthand)
+        self.description = description
+    def __str__(self):
+        f"{self.description}. It is definitely too heavy to carry with me."
