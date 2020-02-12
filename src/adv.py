@@ -56,29 +56,56 @@ while True:
     print(f"\n\n==Current Location: {player.current_room.name}==\n")
     print(f"{player.current_room.description}\n")
     player_move = input("Please enter a command.\n ==>")
-    if player_move == "q":
-        break
-    elif player_move == "help":
-        print("Move commands: n, s, e, w. Type 'room' to get a description of your current position. Type 'q' to quit")
-    elif player_move == "room":
-        print(player.current_room.description)
-    elif player_move == "n":
-        if player.current_room.n_to != '':
-            player.current_room = player.current_room.n_to
-        else:
-            print("\n\nThere isn't a way to go that direction!\n")
-    elif player_move == "s":
-        if player.current_room.s_to != '':
-            player.current_room = player.current_room.s_to
-        else:
-            print("\n\nThere isn't a way to go that direction!\n")
-    elif player_move == "e":
-        if player.current_room.e_to != '':
-            player.current_room = player.current_room.e_to
-        else:
-            print("\n\nThere isn't a way to go that direction!\n")
-    elif player_move == "w":
-        if player.current_room.w_to != '':
-            player.current_room = player.current_room.w_to
-        else:
-            print("\n\nThere isn't a way to go that direction!\n")
+    if len(player_move.split(' ')) == 1:
+        if player_move == "q":
+            break
+        elif player_move == "help":
+            print("Move commands: n, s, e, w. Type 'room' to get a description of your current position. Type 'q' to quit")
+        elif player_move == "room":
+            print(player.current_room.description)
+        elif player_move == "n":
+            if player.current_room.n_to != '':
+                player.current_room = player.current_room.n_to
+            else:
+                print("\n\nThere isn't a way to go that direction!\n")
+        elif player_move == "s":
+            if player.current_room.s_to != '':
+                player.current_room = player.current_room.s_to
+            else:
+                print("\n\nThere isn't a way to go that direction!\n")
+        elif player_move == "e":
+            if player.current_room.e_to != '':
+                player.current_room = player.current_room.e_to
+            else:
+                print("\n\nThere isn't a way to go that direction!\n")
+        elif player_move == "w":
+            if player.current_room.w_to != '':
+                player.current_room = player.current_room.w_to
+            else:
+                print("\n\nThere isn't a way to go that direction!\n")
+
+    elif len(player_move.split(' ')) == 2:
+        command = player_move.split(' ')[0]
+        item = player_move.split(' ')[1]
+        if command == 'take' | command == 'get':
+            taken = False
+            for thing in player.current_room.items:
+                if item == thing.name:
+                    player.inventory.append(player.current_room.items.pop(thing)) #add item to inventory and remove from current room
+                    room[f"{player.current_room}"].items.remove(thing) # also make sure room doesn't load the item next time you enter
+                    print(f"You take the {item}.\n")
+                    taken = True
+            if taken == False:
+                print("You search the room for the item you want to pick up... It doesn't look like it's here.\n")
+        
+        elif command == 'drop':
+            dropped = False
+            for thing in player.inventory:
+                if item == thing.name:
+                    item = thing
+                    player.current_room.items.append(player.inventory.pop(item)) ## add to room and remove from inventory
+                    room[f"{player.current_room}"].items.append(item)
+                    print(f"You've dropped {item.name}.\n")
+                    dropped = True
+            if dropped == False:
+                print("You search your inventory for the item you want to drop... but you don't find anything.\n")
