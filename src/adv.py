@@ -1,22 +1,23 @@
 from room import Room
 from player import Player
+from room_items import outside_items
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+    'outside':  Room("Outside Cave Entrance", 'outside',
+                     "North of you, the cave mount beckons", items= outside_items),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
+    'foyer':    Room("Foyer", 'foyer', """Dim light filters in from the south. Dusty
 passages run north and east."""),
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
+    'overlook': Room("Grand Overlook", 'overlook', """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm."""),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+    'narrow':   Room("Narrow Passage", 'narrow', """The narrow passage bends here from west
 to north. The smell of gold permeates the air."""),
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
+    'treasure': Room("Treasure Chamber", 'treasure', """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
@@ -51,7 +52,7 @@ player = Player(name = input("Please enter a name for your character..."), curre
 #
 # If the user enters "q", quit the game.
 print(f"\n==={player.name}, your adventure awaits! Go forth, and conquer!===\n")
-print("===COMMANDS===\n n: Move North\n s: Move South\n e: Move East\n w: Move West\n q: Quit\n room: Current Room Description\n help: Help\n==============\n\n")
+print("===COMMANDS===\n n: Move North\n s: Move South\n e: Move East\n w: Move West\n q: Quit\n 'i' or 'inventory': Lists Inventory\n room: Current Room Description\n help: Help\n==============\n\n")
 while True:
     print(f"\n\n==Current Location: {player.current_room.name}==\n")
     print(f"{player.current_room.description}\n")
@@ -83,17 +84,22 @@ while True:
                 player.current_room = player.current_room.w_to
             else:
                 print("\n\nThere isn't a way to go that direction!\n")
+        elif player_move == "i" or player_move == "inventory":
+            if len(player.inventory) != 0:
+                [print(f"{item.name},\n") for item in player.inventory]
+            else:
+                print("There is nothing in your inventory!\n")
 
     elif len(player_move.split(' ')) == 2:
         command = player_move.split(' ')[0]
         item = player_move.split(' ')[1]
-        if command == 'take' | command == 'get':
+        if command == 'take' or command == 'get':
             taken = False
             for thing in player.current_room.items:
-                if item.upper() == thing.name.upper() | item.upper() == thing.shorthand.upper():
-                    player.inventory.append(player.current_room.items.pop(thing)) #add item to inventory and remove from current room
-                    room[f"{player.current_room}"].items.remove(thing) # also make sure room doesn't load the item next time you enter
-                    print(f"You take the {item}.\n")
+                if item.upper() == thing.name.upper() or item.upper() == thing.shorthand.upper():
+                    player.inventory.append(thing) #add item to inventory
+                    player.current_room.items.remove(thing) ## remove it from player[current_room]
+                    print(f"You take the {thing.name}.\n")
                     taken = True
             if taken == False:
                 print("You search the room for the item you want to pick up... It doesn't look like it's here.\n")
@@ -101,11 +107,10 @@ while True:
         elif command == 'drop':
             dropped = False
             for thing in player.inventory:
-                if item.upper() == thing.name.upper() | item.upper() == thing.shorthand.upper():
-                    item = thing
-                    player.current_room.items.append(player.inventory.pop(item)) ## add to room and remove from inventory
-                    room[f"{player.current_room}"].items.append(item)
-                    print(f"You've dropped {item.name}.\n")
+                if item.upper() == thing.name.upper() or item.upper() == thing.shorthand.upper():
+                    player.current_room.items.append(thing) ## add to room and remove from inventory
+                    player.inventory.remove(thing)
+                    print(f"You've dropped {thing.name}.\n")
                     dropped = True
             if dropped == False:
                 print("You search your inventory for the item you want to drop... but you don't find anything.\n")

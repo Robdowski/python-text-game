@@ -7,14 +7,14 @@ class Item():
 
 class Equipment(Item):
     def __init__(self, name, shorthand, slot):
-        super().__init__(self, name, shorthand)
+        super().__init__(name, shorthand)
         self.slot = slot
     def __str__(self):
         f"Item: {self.name}\nSlot: {self.slot}\n"
 
 class Armor(Equipment):
     def __init__(self, name, shorthand, slot, defense, strength):
-        super().__init__(self, name, shorthand, slot)
+        super().__init__(name, shorthand, slot)
         self.defense = defense
         self.strength = strength
     def __str__(self):
@@ -22,7 +22,7 @@ class Armor(Equipment):
 
 class Weapon(Equipment):
     def __init__(self, name, shorthand, slot, attack, strength):
-        super().__init__(self, name, shorthand, slot)
+        super().__init__(name, shorthand, slot)
         self.attack = attack
         self.strength = strength
     def __str__(self):
@@ -30,7 +30,7 @@ class Weapon(Equipment):
 
 class Consumable(Item):
     def __init__(self, name, shorthand, effect):
-        super().__init__(self, name, shorthand)
+        super().__init__(name, shorthand)
         self.effect = effect
     def __str__(self):
         f"Item: {self.name}\nEffect: {self.effect}\n"
