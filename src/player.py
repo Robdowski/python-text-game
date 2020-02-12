@@ -11,11 +11,21 @@ class Player():
 
     def equip(self, item):
         if self.equipment[f"{item.slot}"]:
-           choice = input(f"You already have a {item.slot} equipped. Do you want to replace it? y / n\n==>")
-           if choice == "y":
-               self.inventory.append(self.equipment.pop(f"{item.slot}"))
-               self.equipment.update(item)
-               print(f"Item {item.name} has been equipped!\n")
-           if choice == "n":
-               print("Nothing was equipped.\n")
+            choice = input(f"You already have a {item.slot} equipped. Do you want to replace it? y / n\n==>")
+            if choice == "y":
+                self.inventory.append(self.equipment.pop(f"{item.slot}"))
+                self.equipment.update(item)
+                self.inventory.remove(item)
+                print(f"Item {item.name} has been equipped!\n")
+
+            elif choice == "n":
+                print("Nothing was equipped.\n")
+
+            else:
+                print("I did not understand that command. Valid choices are 'y' / 'n' \n Try equipping again.\n")
+
+        else:
+            self.equipment.update(item)
+            self.inventory.remove(item)
+            print(f"Item {item.name} has been equipped!\n")
 
