@@ -90,7 +90,7 @@ while True:
         if command == 'take' | command == 'get':
             taken = False
             for thing in player.current_room.items:
-                if item == thing.name:
+                if item.upper() == thing.name.upper() | item.upper() == thing.shorthand.upper():
                     player.inventory.append(player.current_room.items.pop(thing)) #add item to inventory and remove from current room
                     room[f"{player.current_room}"].items.remove(thing) # also make sure room doesn't load the item next time you enter
                     print(f"You take the {item}.\n")
@@ -101,7 +101,7 @@ while True:
         elif command == 'drop':
             dropped = False
             for thing in player.inventory:
-                if item == thing.name:
+                if item.upper() == thing.name.upper() | item.upper() == thing.shorthand.upper():
                     item = thing
                     player.current_room.items.append(player.inventory.pop(item)) ## add to room and remove from inventory
                     room[f"{player.current_room}"].items.append(item)
