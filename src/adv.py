@@ -1,16 +1,6 @@
 from room import Room
 from player import Player
 from rooms_list import room
-# Declare all the rooms
-
-
-
-# Link rooms together
-
-
-#
-# Main
-#
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player(name = input("Please enter a name for your character..."), current_room = room['outside'])
@@ -27,56 +17,34 @@ player = Player(name = input("Please enter a name for your character..."), curre
 # If the user enters "q", quit the game.
 print(f"\n==={player.name}, your adventure awaits! Go forth, and conquer!===\n")
 print("===COMMANDS===\n n: Move North\n s: Move South\n e: Move East\n w: Move West\n q: Quit\n 'i' or 'inventory': Lists Inventory\n room: Current Room Description\n inspect: Lists items in room\n help: Help\n==============\n\n")
-print(f"\n\n==Current Location: {player.current_room.name}==\n")
-print(f"{player.current_room.description}\n")
-description_needed = False # initially set to false
 while True:
-    if description_needed == True:
+    if player.entered_new_room == True: ##Print room info when player enters new room
         print(f"\n\n==Current Location: {player.current_room.name}==\n")
         print(f"{player.current_room.description}\n")
-        description_needed = False ## Room will not keep reprinting until another room is entered and this is turned back true
+        player.entered_new_room = False ## Stop from reprinting unless new room entered
     player_move = input("\nPlease enter a command.\n ==>")
     if len(player_move.split(' ')) == 1:
-        if player_move == "q":
+
+        if player_move.lower() == "q":
             break
-        elif player_move == "help":
-            print("Move commands: n, s, e, w. Type 'room' to get a description of your current position. Type 'q' to quit")
-        elif player_move == "room":
+
+        elif player_move.lower() == "help":
+            print("Move commands: n, s, e, w. Type 'room' to get a description of your current position. Type 'inspect' to look around. Type 'q' to quit")
+
+        elif player_move.lower() == "room":
             print(player.current_room.description)
-        elif player_move == "n":
-            if player.current_room.n_to != '':
-                player.current_room = player.current_room.n_to
-                description_needed = True # Set to true so that the description will print upon entering room
-            else:
-                print("\n\nThere isn't a way to go that direction!\n")
-        elif player_move == "s":
-            if player.current_room.s_to != '':
-                player.current_room = player.current_room.s_to
-                description_needed = True # Set to true so that the description will print upon entering room
-            else:
-                print("\n\nThere isn't a way to go that direction!\n")
-        elif player_move == "e":
-            if player.current_room.e_to != '':
-                player.current_room = player.current_room.e_to
-                description_needed = True # Set to true so that the description will print upon entering room
-            else:
-                print("\n\nThere isn't a way to go that direction!\n")
-        elif player_move == "w":
-            if player.current_room.w_to != '':
-                player.current_room = player.current_room.w_to
-                description_needed = True # Set to true so that the description will print upon entering room
-            else:
-                print("\n\nThere isn't a way to go that direction!\n")
-        elif player_move == "i" or player_move == "inventory":
+
+        elif player_move.lower() in ["n", "s", "e", "w"]:
+            player.movement(player_move)
+
+        elif player_move.lower() in ["i", "inv", "inventory", "bag", "backpack"]:
             if len(player.inventory) != 0:
                 [print(f"{item.name},\n") for item in player.inventory]
             else:
                 print("There is nothing in your inventory!\n")
+
         elif player_move == "inspect":
             player.current_room.inspect()
-            if player.current_room.items:
-                for item in player.current_room.items:
-                    print(item.name)
 
     elif len(player_move.split(' ')) == 2:
         command = player_move.split(' ')[0]
