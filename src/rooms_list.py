@@ -1,7 +1,7 @@
 from room_items import outside_items, items_list_tier_one
 from room import Room
-from random import choices
-from enemy_list import bat
+from random import choices, choice
+from enemy_list import tier_one, bat, rat
 
 room = {
     'outside':  Room(
@@ -44,9 +44,14 @@ you can't shake the feeling you're being watched.""",
                     description= """\nA steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm.\n""",
-                    inspect_message_items="""\ns""",
-                    inspect_message_looted="""\ns""",
-                    items= []
+                    inspect_message_items="""\nNext to the cliff, you see a small cloth,
+upon further inspection, you unravel the small cloth
+and find an item hidden within it.""",
+                    inspect_message_looted="""\nYou've taken everything you can.
+Still, you have no idea how to get across the chasm.
+Better turn back and see if there's another way to go.""",
+                    items= choices(items_list_tier_one, k=1),
+                    enemies=[bat, rat]
                     ),
 
     'narrow':   Room(
@@ -54,9 +59,16 @@ the distance, but there is no way across the chasm.\n""",
                     shorthand= 'narrow',
                     description= """The narrow passage bends here from west
 to north. The smell of gold permeates the air.""",
-                    inspect_message_items= """asd""",
-                    inspect_message_looted= """asd""",
-                    items = []
+                    inspect_message_items= """\nThe passage is lined with forest on the east,
+so thick that you cannot see further than a few feet.
+There's definitely no travelling through here.
+Beneath a tree on the edge of the path, you notice an item.""",
+                    inspect_message_looted= """\nThe trees are old, thick, and gnarly.
+You've never seen such twisted branches.
+The urge to sit and stare into the blackness
+of the forest is increasing by the moment.
+You should move on quickly.""",
+                    items = choices(items_list_tier_one, k=1)
                     ),
 
     'treasure': Room(
@@ -67,8 +79,8 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""",
                     inspect_message_items= """asd""",
                     inspect_message_looted= """asd""",
-                    items=[],
-                    enemies=[bat]
+                    items=choices(items_list_tier_one, k=1),
+                    enemies=choices(tier_one, k=2)
                     ),
 }
 

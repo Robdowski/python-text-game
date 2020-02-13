@@ -1,7 +1,8 @@
 from items import Item, Equipment, Armor, Weapon, Consumable, LoreItem, Book
 
 outside_items = [
-    Weapon(name="Rusted Dagger", shorthand="dagger", slot="weapon", attack=1.2, strength=1),
+    Weapon(name="Rusted Dagger", shorthand="dagger", slot="weapon", attack=1.3, strength=1),
+    Weapon(name="Iron Shortsword", shorthand="sword", slot="weapon", attack=2.0, strength=4),
     Item(name="Torch", shorthand="torch"),
     Book(name="Test Book", shorthand="book", description="An old book", content=["Hello", "Page2", "3", "4", "5"])
 ]

@@ -28,10 +28,10 @@ while True:
     
     if player.health == 0:
         print("""You've taken so much damage... everything is fading
-        ...
-        ...
-        You awaken, it seems like hours have passed, and you're back outside.
-        Strangely, you feel great, and you didn't lose any equipment!\n""")
+...
+...
+You awaken, it seems like hours have passed, and you're back outside.
+Strangely, you feel great, and you didn't lose any equipment!\n""")
         player.current_room = room['outside']
         player.health = 100
 
