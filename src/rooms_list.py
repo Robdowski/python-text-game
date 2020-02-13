@@ -1,6 +1,7 @@
 from room_items import outside_items, items_list_tier_one
 from room import Room
 from random import choices
+from enemy_list import bat
 
 room = {
     'outside':  Room(
@@ -66,7 +67,8 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""",
                     inspect_message_items= """asd""",
                     inspect_message_looted= """asd""",
-                    items=[]
+                    items=[],
+                    enemies=[bat]
                     ),
 }
 

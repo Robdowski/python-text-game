@@ -19,6 +19,22 @@ print(f"\n==={player.name}, your adventure awaits! Go forth, and conquer!===\n")
 print("===COMMANDS===\n n: Move North\n s: Move South\n e: Move East\n w: Move West\n q: Quit\n 'i' or 'inventory': Lists Inventory\n room: Current Room Description\n inspect: Lists items in room\n help: Help\n==============\n\n")
 while True:
 
+    if len(player.current_room.enemies) == 1:
+       player.fight(player.current_room.enemies[0])
+    if len(player.current_room.enemies) > 1:
+        print(f"There are {len(player.current_room.enemies)} here! You're going to have to fight them all in a row!")
+        for enemy in player.current_room.enemies:
+            player.fight(enemy)
+    
+    if player.health == 0:
+        print("""You've taken so much damage... everything is fading
+        ...
+        ...
+        You awaken, it seems like hours have passed, and you're back outside.
+        Strangely, you feel great, and you didn't lose any equipment!\n""")
+        player.current_room = room['outside']
+        player.health = 100
+
     if player.entered_new_room == True: ##Print room info when player enters new room
         print(f"\n\n==Current Location: {player.current_room.name}==\n")
         print(f"{player.current_room.description}\n")
@@ -44,7 +60,7 @@ while True:
             else:
                 print("There is nothing in your inventory!\n")
 
-        elif player_move.lower() == "inspect":
+        elif player_move.lower() in ["inspect", "search", "look", "investigate"]:
             player.current_room.inspect()
         
         elif player_move.lower() in ["me", "self", "person", "myself"]:

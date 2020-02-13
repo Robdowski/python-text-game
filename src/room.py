@@ -2,13 +2,14 @@
 # description attributes.
 
 class Room():
-    def __init__(self, name, shorthand, description, inspect_message_items= '', inspect_message_looted='', items = [], n_to = '', s_to = '', e_to = '', w_to = ''):
+    def __init__(self, name, shorthand, description, inspect_message_items= '', inspect_message_looted='', items = [], enemies=[], n_to = '', s_to = '', e_to = '', w_to = ''):
         self.name = name
         self.shorthand = shorthand
         self.description = description
         self.inspect_message_items = inspect_message_items
         self.inspect_message_looted = inspect_message_looted
         self.items = items
+        self.enemies = enemies
         self.n_to = n_to
         self.s_to = s_to
         self.e_to = e_to
@@ -24,4 +25,8 @@ class Room():
             print(self.inspect_message_items)
             print("\n=== Items in room ===\n")
             [print(f"{item.name}\n") for item in self.items]
+
+
+
+        
 

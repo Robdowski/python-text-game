@@ -66,5 +66,49 @@ class Player():
 Health: {self.health}
 Location: {self.current_room.name}
        """)
+
+    def attack(self, target):
+        attack_power = 0
+        strength = 0
+        for item in self.equipment.items():
+            if item[0] == "attack":
+                attack_power += item[1]
+            if item[0] == "strength":
+                strength += item[1]
+        total_power = attack_power + (strength * 0.9)
+
+        target.health - (total_power - target.defense)
+
+        return target.health
+
+    def get_defense(self):
+        defense = 0
+        for item in self.equipment.items():
+            if item[0] == "defense":
+                defense += item[1]
+        return defense
+
+    def fight(self, monster):
+        print("There's a monster here, no running away now!\n")
+        while True:
+            if self.health == 0:
+                break
+            if monster.health == 0:
+                monster.on_death()
+                break
+            
+            print(f"Player Health: {self.health}\nMonster Health: {monster.health}")
+            move = input("Press 'a' to attack. Press 'c' to use consumable." )
+
+            if move.lower() == 'a':
+                monster_health_start = monster.health
+                self.attack(monster)
+                damage = monster_health_start - monster.health
+                print(f"You attack the {monster.name}. The attack did {damage} damage! It has {monster.health} left.\n")
+
+                input("The monster looks like it's going to attack, press 'any key' to defend!")
+      
+                monster.attack_player(self)
+
              
 
