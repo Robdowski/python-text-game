@@ -18,6 +18,7 @@ player = Player(name = input("Please enter a name for your character..."), curre
 print(f"\n==={player.name}, your adventure awaits! Go forth, and conquer!===\n")
 print("===COMMANDS===\n n: Move North\n s: Move South\n e: Move East\n w: Move West\n q: Quit\n 'i' or 'inventory': Lists Inventory\n room: Current Room Description\n inspect: Lists items in room\n help: Help\n==============\n\n")
 while True:
+
     if player.entered_new_room == True: ##Print room info when player enters new room
         print(f"\n\n==Current Location: {player.current_room.name}==\n")
         print(f"{player.current_room.description}\n")
@@ -50,29 +51,29 @@ while True:
             player.inspect_self()
 
     elif len(player_move.split(' ')) == 2:
+
         command = player_move.split(' ')[0]
         item = player_move.split(' ')[1]
+
         if command == 'take' or command == 'get':
-            taken = False
-            for thing in player.current_room.items:
-                if item.upper() == thing.name.upper() or item.upper() == thing.shorthand.upper():
-                    player.inventory.append(thing) #add item to inventory
-                    player.current_room.items.remove(thing) ## remove it from room
-                    print(f"You take the {thing.name}.\n")
-                    taken = True
-            if taken == False:
-                print("You search the room for the item you want to pick up... It doesn't look like it's here.\n")
-        
+            player.take_item(item)
+            
         elif command == 'drop':
-            dropped = False
-            for thing in player.inventory:
-                if item.upper() == thing.name.upper() or item.upper() == thing.shorthand.upper():
-                    player.current_room.items.append(thing) ## add to room
-                    player.inventory.remove(thing) ## remove from inventory
-                    print(f"You've dropped {thing.name}.\n")
-                    dropped = True
-            if dropped == False:
-                print("You search your inventory for the item you want to drop... but you don't find anything.\n")
+            player.drop_item(item)
         
         elif command in ["equip", "wear", "weild"]:
             player.equip(item)
+        
+        elif command in ["read", "r"]:
+            read = False
+            for thing in player.current_room.items:
+                if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
+                    thing.read()
+                    read = True
+            for thing in player.inventory:
+                if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
+                    thing.read()
+                    read = True
+            if read == False:
+                print("You look for the item you want to read... it's not here!\n")
+            

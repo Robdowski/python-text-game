@@ -1,8 +1,9 @@
-from items import Item, Equipment, Armor, Weapon, Consumable, LoreItem, Uncarriable
+from items import Item, Equipment, Armor, Weapon, Consumable, LoreItem, Book
 
 outside_items = [
     Weapon(name="Rusted Dagger", shorthand="dagger", slot="weapon", attack=1.2, strength=1),
-    Item(name="Torch", shorthand="torch")
+    Item(name="Torch", shorthand="torch"),
+    Book(name="Test", shorthand="book", description="An old book", content=["Hello", "Page2", "3", "4", "5"])
 ]
 
 items_list_tier_one = [
@@ -17,7 +18,7 @@ items_list_tier_one = [
     Consumable(name="Dog Biscuits", shorthand="biscuits", effect="I could give this to a dog at some point. Who knows?"),
     LoreItem(name="Chalice", shorthand="chalice", description="An old chalice, likely used for drinking ale or wine."),
     LoreItem(name="Skull", shorthand="skull", description="A human skull, with an arrowhead still stuck in the side."),
-    Uncarriable(name="Giant Scale", shorthand="scale", description="An absolutely massive scale. Just touching it sends a wave of warmth through your hand and up your arm, but it doesn't burn. Looks reptilian.")
+    LoreItem(name="Giant Scale", shorthand="scale", description="An absolutely massive scale. Just touching it sends a wave of warmth through your hand and up your arm, but it doesn't burn. Looks reptilian.")
 ]
 
 items_list_tier_two = [

@@ -42,9 +42,32 @@ class LoreItem(Item):
     def __str__(self):
         f"{self.description}. I'm not sure whether it'll be useful later..."
 
-class Uncarriable(Item):
-    def __init__(self, name, shorthand, description):
+class Book(Item):
+    def __init__(self, name, shorthand, description, content = []):
         super().__init__(name, shorthand)
         self.description = description
-    def __str__(self):
-        f"{self.description}. It is definitely too heavy to carry with me."
+        self.content = content
+    
+    def read(self):
+        print(self.content[0])
+        page = 0
+        while True:
+            move = input("Press 'n' for next page, 'p' for previous, 'q' to quit.")
+            if move == "q":
+                break
+            elif move == "n":
+                if page < len(self.content)-1:
+                    page += 1
+                    print(self.content[page] + "\n")
+                else:
+                    print("That looks like the last page of the book...")
+            elif move == "p":
+                if page > 0:
+                    page -= 1
+                    print(self.content[page] + "\n")
+                else:
+                    print("You are on the first page already!\n")
+                    continue
+            else:
+                print("I did not understand that command. Enter 'p', 'n', or 'q'!")
+                continue

@@ -17,6 +17,28 @@ class Player():
         else:
             print("You cannot go that way! Are you blind?")
 
+    def take_item(self, item):
+        taken = False
+        for thing in self.current_room.items:
+            if item.upper() == thing.name.upper() or item.upper() == thing.shorthand.upper():
+                self.inventory.append(thing) #add item to inventory
+                self.current_room.items.remove(thing) ## remove it from room
+                print(f"You take the {thing.name}.\n")
+                taken = True
+        if taken == False:
+            print("You search the room for the item you want to pick up... It doesn't look like it's here.\n")
+
+    def drop_item(self, item):
+        dropped = False
+        for thing in self.inventory:
+            if item.upper() == thing.name.upper() or item.upper() == thing.shorthand.upper():
+                self.current_room.items.append(thing) ## add to room
+                self.inventory.remove(thing) ## remove from inventory
+                print(f"You've dropped {thing.name}.\n")
+                dropped = True
+        if dropped == False:
+            print("You search your inventory for the item you want to drop... but you don't find anything.\n")
+
     def equip(self, item):
         for thing in self.inventory:
             if item in [thing.shorthand, thing.name]:
