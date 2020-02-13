@@ -19,12 +19,9 @@ print(f"\n==={player.name}, your adventure awaits! Go forth, and conquer!===\n")
 print("===COMMANDS===\n n: Move North\n s: Move South\n e: Move East\n w: Move West\n q: Quit\n 'i' or 'inventory': Lists Inventory\n room: Current Room Description\n inspect: Lists items in room\n help: Help\n==============\n\n")
 while True:
 
-    if len(player.current_room.enemies) == 1:
-       player.fight(player.current_room.enemies[0])
-    if len(player.current_room.enemies) > 1:
-        print(f"There are {len(player.current_room.enemies)} here! You're going to have to fight them all in a row!")
-        for enemy in player.current_room.enemies:
-            player.fight(enemy)
+    if len(player.current_room.enemies) > 0:
+        print("It looks like there are monsters here! You're going to have to fight")
+        player.fight(player.current_room.enemies[0])
     
     if player.health == 0:
         print("""You've taken so much damage... everything is fading
@@ -99,11 +96,11 @@ Strangely, you feel great, and you didn't lose any equipment!\n""")
             examined = False
             for thing in player.current_room.items:
                 if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
-                    print(f"You get closer to the item. {thing.description}")
+                    print(f"{thing.description}")
                     examined=True
-            for thing in player.inventory.items:
+            for thing in player.inventory:
                 if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
-                    print(f"You get closer to the item. {thing.description}")
+                    print(f"{thing.description}")
                     examined=True
             if examined == False:
                 print("You look around for the item you want to examine... you can't find it.")

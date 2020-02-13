@@ -94,10 +94,9 @@ Location: {self.current_room.name}
         return defense
 
     def fight(self, monster):
-        print("There's a monster here, no running away now!\n")
         while True:
-            print(f"Player Health: {self.health}\nMonster Health: {monster.health}")
-            move = input("Press 'a' to attack. Press 'c' to use consumable." )
+            print(f"Player Health: {self.health}\nMonster Type:{monster.name}\nMonster Health: {monster.health}")
+            move = input("Press 'a' to attack. Press 'c' to use consumable.Press 'e' to equip item." )
 
             if move.lower() == 'a':
                 monster_health_start = monster.health
@@ -107,14 +106,20 @@ Location: {self.current_room.name}
 
                 if monster.health <= 0:
                     monster.on_death(self)
-                    break
-
+                    if len(self.current_room.enemies) == 0:
+                        break
                 input("The monster looks like it's going to attack, press 'any key' to defend!")
       
                 monster.attack_player(self)
 
                 if self.health <= 0:
                     break
+            
+            if move.lower() == 'e':
+                [print(item.name) for item in self.inventory]
+                choice = input("Which item do you want to equip?")
+                self.equip(choice) 
+
 
              
 

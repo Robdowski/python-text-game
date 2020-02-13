@@ -1,4 +1,4 @@
-from room_items import outside_items, items_list_tier_one
+from room_items import outside_items, items_list_tier_one, items_list_tier_two, items_list_tier_three
 from room import Room
 from random import choices, choice
 from enemy_list import tier_one, bat, rat

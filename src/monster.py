@@ -22,18 +22,21 @@ class Monster():
         return player.health
     
     def on_death(self, player):
-        player.current_room.enemies.pop(0)
+        player.current_room.enemies.remove(self)
         if self.tier == 1:
             item_drop = choice(items_list_tier_one)
             player.current_room.items.append(item_drop)
             print(f"The {self.name} dropped {item_drop.name}!")
 
-        if self.tier == 2:
+        elif self.tier == 2:
             item_drop = choice(items_list_tier_two)
             player.current_room.items.append(item_drop)
             print(f"The {self.name} dropped {item_drop.name}!")
 
-        if self.tier == 3:
+        elif self.tier == 3:
             item_drop = choice(items_list_tier_three)
             player.current_room.items.append(item_drop)
             print(f"The {self.name} dropped {item_drop.name}!")
+
+        if len(player.current_room.enemies) > 0:
+            player.fight(player.current_room.enemies[0])
