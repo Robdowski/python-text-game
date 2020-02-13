@@ -43,24 +43,27 @@ class Player():
     def equip(self, item):
         for thing in self.inventory:
             if item in [thing.shorthand, thing.name]:
-                if hasattr(self.equipment, thing.slot):
-                    choice = input(f"You already have a {thing.slot} equipped. Do you want to replace it? y / n\n==>")
-                    if choice == "y":
-                        self.inventory.append(self.equipment.pop(f"{thing.slot}"))
+                if hasattr(thing, "slot"):
+                    if thing.slot in self.equipment.keys():
+                        choice = input(f"You already have a {thing.slot} equipped. Do you want to replace it? y / n\n==>")
+                        if choice == "y":
+                            self.inventory.append(self.equipment.pop(f"{thing.slot}"))
+                            self.equipment[thing.slot] = thing
+                            self.inventory.remove(thing)
+                            print(f"Item {thing.name} has been equipped!\n")
+
+                        elif choice == "n":
+                            print("Nothing was equipped.\n")
+
+                        else:
+                            print("I did not understand that command. Valid choices are 'y' / 'n' \n Try equipping again.\n")
+
+                    else:
                         self.equipment[thing.slot] = thing
                         self.inventory.remove(thing)
                         print(f"Item {thing.name} has been equipped!\n")
-
-                    elif choice == "n":
-                        print("Nothing was equipped.\n")
-
-                    else:
-                        print("I did not understand that command. Valid choices are 'y' / 'n' \n Try equipping again.\n")
-
                 else:
-                    self.equipment[thing.slot] = thing
-                    self.inventory.remove(thing)
-                    print(f"Item {thing.name} has been equipped!\n")
+                    print("I can't equip that!")
 
     def inspect_self(self):
        print(f"""Name: {self.name}
