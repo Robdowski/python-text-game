@@ -1,5 +1,6 @@
-from room_items import outside_items
+from room_items import outside_items, items_list_tier_one
 from room import Room
+from random import choices
 
 room = {
     'outside':  Room(
@@ -25,9 +26,15 @@ Something isn't quite right here, but you aren't sure what...\n""",
                     shorthand= 'foyer',
                     description= """\nDim light filters in from the south.
 Dusty passages run north and east.""",
-                    inspect_message_items="""\nasd""",
-                    inspect_message_looted="""\nasd""",
-                    items = []
+                    inspect_message_items="""\nThe room is so dark that even with the torch,
+you can barely make anything out.  
+After rifling through a pile of dusty books,
+you do manage to find some things,""",
+                    inspect_message_looted="""\nAfter clearing the room of anything useful,
+you now realize this place has not
+been inhabited for some time. Still yet,
+you can't shake the feeling you're being watched.""",
+                    items = choices(items_list_tier_one, k=2)
                     ),
 
     'overlook': Room(

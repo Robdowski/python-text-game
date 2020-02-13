@@ -43,8 +43,11 @@ while True:
             else:
                 print("There is nothing in your inventory!\n")
 
-        elif player_move == "inspect":
+        elif player_move.lower() == "inspect":
             player.current_room.inspect()
+        
+        elif player_move.lower() in ["me", "self", "person", "myself"]:
+            player.inspect_self()
 
     elif len(player_move.split(' ')) == 2:
         command = player_move.split(' ')[0]
@@ -70,3 +73,6 @@ while True:
                     dropped = True
             if dropped == False:
                 print("You search your inventory for the item you want to drop... but you don't find anything.\n")
+        
+        elif command in ["equip", "wear", "weild"]:
+            player.equip(item)

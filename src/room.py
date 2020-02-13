@@ -22,5 +22,6 @@ class Room():
             print(self.inspect_message_looted)
         else:
             print(self.inspect_message_items)
+            print("\n=== Items in room ===\n")
             [print(f"{item.name}\n") for item in self.items]
 
