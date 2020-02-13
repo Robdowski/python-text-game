@@ -9,6 +9,12 @@ class Player():
     def __str__(self):
         f"\n===Player===\nName: {self.name}\nLocation: {self.current_room}\nInventory: {self.inventory}\n"
 
+    def move(self, command):
+        command = f"{command}"+"_to"
+        print(command)
+        if self.current_room[f"command"] != "":
+            self.current_room = self.current_room[f"{command}"]
+
     def equip(self, item):
         if self.equipment[f"{item.slot}"]:
             choice = input(f"You already have a {item.slot} equipped. Do you want to replace it? y / n\n==>")

@@ -35,7 +35,7 @@ while True:
         print(f"\n\n==Current Location: {player.current_room.name}==\n")
         print(f"{player.current_room.description}\n")
         description_needed = False ## Room will not keep reprinting until another room is entered and this is turned back true
-    player_move = input("Please enter a command.\n ==>")
+    player_move = input("\nPlease enter a command.\n ==>")
     if len(player_move.split(' ')) == 1:
         if player_move == "q":
             break
@@ -73,8 +73,10 @@ while True:
             else:
                 print("There is nothing in your inventory!\n")
         elif player_move == "inspect":
-            print(player.current_room.inspect)
-            [print(item.name) for item in player.current_room.items]
+            player.current_room.inspect()
+            if player.current_room.items:
+                for item in player.current_room.items:
+                    print(item.name)
 
     elif len(player_move.split(' ')) == 2:
         command = player_move.split(' ')[0]
