@@ -84,12 +84,26 @@ Strangely, you feel great, and you didn't lose any equipment!\n""")
             read = False
             for thing in player.current_room.items:
                 if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
-                    thing.read()
-                    read = True
+                    if hasattr(thing, "read"):
+                        thing.read()
+                        read = True
             for thing in player.inventory:
                 if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
-                    thing.read()
-                    read = True
+                    if hasattr(thing, "read"):
+                        thing.read()
+                        read = True
             if read == False:
                 print("You look for the item you want to read... it's not here!\n")
-            
+        
+        elif command in ["inspect", "look", "investigate", "search"]:
+            examined = False
+            for thing in player.current_room.items:
+                if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
+                    print(f"You get closer to the item. {thing.description}")
+                    examined=True
+            for thing in player.inventory.items:
+                if item.lower() == thing.name.lower() or item.lower() == thing.shorthand.lower():
+                    print(f"You get closer to the item. {thing.description}")
+                    examined=True
+            if examined == False:
+                print("You look around for the item you want to examine... you can't find it.")
